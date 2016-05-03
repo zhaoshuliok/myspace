@@ -1,0 +1,8 @@
+
+{                                                      
+	"total":100,	
+	"rows":[ 
+		{"id":"1","name":"部门经理审批","key":"devicePlan","version":"1","resourceName":"devicePlan.bpmn","diagramResourceName":"devicePlan.png","deploymentId":"1"},
+		{"id":"2","name":"部门经理审批(新)","key":"devicePlan","version":"2","resourceName":"devicePlan.bpmn","diagramResourceName":"devicePlan.png","deploymentId":"1"}
+	]
+}

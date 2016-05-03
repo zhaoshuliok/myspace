@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<elecData>
+  <!--上传文件路径-->
+  <Function>
+     <FunctionFilePath>D:/tomcat/apache-tomcat-7.0.52/webapps/image_elec</FunctionFilePath>
+  </Function>
+  <!-- 图片服务器输出地址，url访问地址 
+  <FunctionServer>
+     <FunctionServerFilePath>http://192.168.1.100:8080/image_elec</FunctionServerFilePath>
+  </FunctionServer>-->
+</elecData>

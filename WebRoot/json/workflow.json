@@ -1,0 +1,6 @@
+[
+	    { "id":"1100", "pid":"0", "name":"流程管理"},
+		{ "id":"1101", "pid":"1100", "name":"流程部署管理", "page":"../workflow/elecWorkflowAction_deployHome.do"},
+		{ "id":"1102", "pid":"1100", "name":"流程执行管理（组任务）", "page":"../workflow/elecWorkflowAction_taskGroupHome.do"},
+		{ "id":"1103", "pid":"1100", "name":"流程执行管理（个人任务）", "page":"../workflow/elecWorkflowAction_taskHome.do"}
+]

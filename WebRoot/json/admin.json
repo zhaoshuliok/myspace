@@ -1,0 +1,7 @@
+[
+	    { "id":"100", "pid":"0", "name":"系统管理"},
+		{ "id":"1001", "pid":"100", "name":"用户管理", "page":"../system/elecUserAction_home.do"},
+		{ "id":"1002", "pid":"100", "name":"角色管理", "page":"../system/elecRoleAction_home.do"},
+		{ "id":"1003", "pid":"100", "name":"运行监控", "page":"../system/elecCommonMsgAction_home.do"},
+		{ "id":"1003", "pid":"100", "name":"数据字典", "page":"../system/elecSystemDDLAction_home.do"}
+]

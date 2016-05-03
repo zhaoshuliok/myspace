@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 开发模式 -->
+	<constant name="struts.devMode" value="true"></constant>
+	<!-- ui主题 -->
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<!-- 修改struts2访问的后缀 -->
+	<constant name="struts.action.extension" value="do"></constant>
+	<!-- 修改struts上传文件的限制 -->
+	<constant name="struts.multipart.maxSize" value="20097152"></constant>
+	<!-- 系统管理 -->
+	<package name="system" namespace="/system" extends="json-default">
+		<!-- 配置自定义的拦截器 -->
+		<interceptors>
+			<interceptor name="myErrorInterceptor" class="cn.itcast.elec.util.MyErrorInterceptor"></interceptor>
+			<interceptor-stack name="myErrorInterceptorStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="myErrorInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 默认开启自定义拦截器的栈 -->
+		<default-interceptor-ref name="myErrorInterceptorStack"></default-interceptor-ref>
+	
+		<!-- 全局转发 -->
+		<global-results>
+			<result name="close">/close.jsp</result>
+			<result name="input">/input.jsp</result>
+			<result name="success" type="stream">
+			   <param name="contentType">${#request.contentType}</param>
+			   <param name="inputName">inputStream</param>
+			   <param name="contentDisposition">attachment;filename="${#request.fileName}"</param>
+			   <param name="bufferSize">1024</param>
+			</result>
+			<result name="errorMsg">/errorMsg.jsp</result>
+			
+		</global-results>
+		<!-- 搭建框架 -->
+		<action name="elecTextAction_*" class="elecTextAction" method="{1}">
+			<result name="save">/system/textAdd.jsp</result>
+		</action>
+		<!-- 搭建框架 -->
+		<action name="elecMenuAction_*" class="elecMenuAction" method="{1}">
+			<result name="menuHome">/WEB-INF/page/menu/home.jsp</result>
+			<result name="logout" type="redirect">/index.jsp</result>
+			<result name="loading">/WEB-INF/page/menu/loading.jsp</result>
+			<result name="alermStation">/WEB-INF/page/menu/alermStation.jsp</result>
+			<result name="alermDevice">/WEB-INF/page/menu/alermDevice.jsp</result>
+			<result name="alermTask">/WEB-INF/page/menu/alermTask.jsp</result>
+			<result name="alermNotice">/WEB-INF/page/menu/alermNotice.jsp</result>
+			<result name="error">/WEB-INF/page/menu/index.jsp</result>
+			<result name="showMenu" type="json"></result>
+		</action>
+		<!-- 运行监控 -->
+		<action name="elecCommonMsgAction_*" class="elecCommonMsgAction" method="{1}">
+			<result name="home">/WEB-INF/page/system/actingIndex.jsp</result>
+			<result name="save" type="redirectAction">
+				<param name="actionName">elecCommonMsgAction_home.do</param>
+			</result>
+		</action>
+		<!-- 数据字典 -->
+		<action name="elecSystemDDLAction_*" class="elecSystemDDLAction" method="{1}">
+			<result name="home">/WEB-INF/page/system/dictionaryIndex.jsp</result>
+			<result name="edit">/WEB-INF/page/system/dictionaryEdit.jsp</result>
+			<result name="save" type="redirectAction">
+				<param name="actionName">elecSystemDDLAction_home.do</param>
+			</result>
+		</action>
+		<!-- 用户管理 -->
+		<action name="elecUserAction_*" class="elecUserAction" method="{1}">
+			<result name="home">/WEB-INF/page/system/userIndex.jsp</result>
+			<result name="add">/WEB-INF/page/system/userAdd.jsp</result>
+			<result name="findJctUnit" type="json">
+				<!-- 如果是一个List集合，集合中存放javabean对象，此时对javabean中的某个属性进行json -->
+				<param name="includeProperties">\[\d+\]\.ddlCode,\[\d+\]\.ddlName</param>
+			</result>
+			<result name="checkUser" type="json">
+				<!-- 通过get方法获取栈顶对象中message的属性值 -->
+				<param name="root">message</param>
+				<!-- 如果是一个javabean对象，此时对javabean中的某个属性进行json -->
+				<param name="includeProperties">message</param>
+			</result>
+			<result name="edit">/WEB-INF/page/system/userEdit.jsp</result>
+			<result name="delete" type="redirectAction">
+				<param name="actionName">elecUserAction_home.do?pageNO=${#request.pageNOdelete}</param>
+			</result>
+			<result name="list">/WEB-INF/page/system/userList.jsp</result>
+			<result name="importPage">/WEB-INF/page/system/userImport.jsp</result>
+			<result name="chartUserFCF">/WEB-INF/page/system/userChartFCF.jsp</result>
+			<result name="chartUserHighChart">/WEB-INF/page/system/userChartHighChart.jsp</result>
+			<result name="highChartUser" type="json"></result>
+		</action>
+		<!-- 角色管理 -->
+		<action name="elecRoleAction_*" class="elecRoleAction" method="{1}">
+			<result name="home">/WEB-INF/page/system/roleIndex.jsp</result>
+			<result name="edit">/WEB-INF/page/system/roleEdit.jsp</result>
+			<result name="save" type="redirectAction">
+				<param name="actionName">elecRoleAction_home.do</param>
+			</result>
+		</action>
+		<!-- 导出设置 -->
+		<action name="elecExportFieldsAction_*" class="elecExportFieldsAction" method="{1}">
+			<result name="setExportFields">/WEB-INF/page/system/exportExcel.jsp</result>
+		</action>
+    </package>
+    
+    <!-- 设备管理 -->
+	<package name="equapment" namespace="/equapment" extends="system">
+		<!-- 设备购置计划 -->
+		<action name="elecDevicePlanAction_*" class="elecDevicePlanAction" method="{1}">
+			<result name="home">/WEB-INF/page/equapment/equapmentPlanUIIndex.jsp</result>
+			<result name="findSystemDDL" type="json"></result>
+		</action>
+	</package>
+	
+	<!-- 流程管理 -->
+	<package name="workflow" namespace="/workflow" extends="system">
+		<!-- 设备购置计划 -->
+		<action name="elecWorkflowAction_*" class="elecWorkflowAction" method="{1}">
+			<result name="home">/WEB-INF/page/workflow/workflow.jsp</result>
+			<result name="findDeploymentList" type="json">
+				<param name="includeProperties">\[\d+\]\.id,\[\d+\]\.name,\[\d+\]\.deploymentTime</param>
+			</result>
+			<result name="findProcessDefinitionList" type="json">
+				<param name="includeProperties">\[\d+\]\.id,\[\d+\]\.name,\[\d+\]\.key,\[\d+\]\.version,\[\d+\]\.resourceName,\[\d+\]\.diagramResourceName,\[\d+\]\.deploymentId</param>
+			</result>
+			<result name="startProcess" type="redirectAction">
+				<param name="namespace">/equapment</param>
+				<param name="actionName">elecDevicePlanAction_home.do</param>
+			</result>
+			<result name="taskGroupHome">/WEB-INF/page/workflow/taskGroup.jsp</result>
+			<result name="taskHome">/WEB-INF/page/workflow/task.jsp</result>
+			<result name="jsonList" type="json"></result>
+			<result name="audit">/WEB-INF/page/workflow/taskForm.jsp</result>
+			<result name="viewHisComment">/WEB-INF/page/workflow/taskFormHis.jsp</result>
+			<result name="viewCurrentImage">/WEB-INF/page/workflow/image.jsp</result>
+		</action>
+	</package>
+	<!-- 资料图纸管理 -->
+	<package name="dataChart" namespace="/dataChart" extends="system">
+		<!-- 资料图纸管理 -->
+		<action name="elecFileUploadAction_*" class="elecFileUploadAction" method="{1}">
+			<result name="home">/WEB-INF/page/dataChart/dataChartIndex.jsp</result>
+			<result name="add">/WEB-INF/page/dataChart/dataChartAdd.jsp</result>
+			<result name="addList">/WEB-INF/page/dataChart/dataChartAddList.jsp</result>
+		</action>
+	</package>
+</struts>
+   

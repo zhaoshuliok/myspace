@@ -1,0 +1,14 @@
+[
+		{ "id":"11", "pid":"0", "name":"技术设施维护管理"},
+		{ "id":"1101", "pid":"11", "name":"仪器设备管理",  "page":"../equapment/equapmentIndex.jsp"},
+		{ "id":"1102", "pid":"11", "name":"设备校准检修","page":"../equapment/adjustIndex.jsp"},
+		{ "id":"1103", "pid":"11", "name":"设备购置计划", "page":"../equapment/elecDevicePlanAction_home.do"},
+		{ "id":"12", "pid":"0", "name":"技术资料图书管理"},
+		{ "id":"1201", "pid":"12", "name":"资料图书管理" ,"page":"../dataChart/elecFileUploadAction_home.do"},
+		{ "id":"13", "pid":"0", "name":"站点设备运行管理"},
+		{ "id":"1301", "pid":"13", "name":"站点基本信息" ,"page":"../siteEquapment/siteInfoIndex.jsp"},
+		{ "id":"1302", "pid":"13", "name":"运行情况" ,"page":"../siteEquapment/siteRunIndex.jsp"},
+		{ "id":"1303", "pid":"13", "name":"维护情况" ,"page":"../siteEquapment/siteMaintainIndex.jsp"},
+		{ "id":"14", "pid":"0", "name":"检测台建筑管理"},
+		{ "id":"1401", "pid":"14", "name":"检测台建筑管理" ,"page":"../building/buildingIndex.jsp"},
+]

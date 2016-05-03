@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx.xsd"> 
+	<!-- 需要 配置shiro Filter -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- 配置 shiroFilter 常见属性 -->
+		<!-- 安全管理器 -->
+		<property name="securityManager" ref="securityManager" />
+		<!-- 配置三个URL -->
+		<property name="loginUrl" value="/index.jsp" /> <!-- 登陆页面 -->
+		<property name="successUrl" value="/index.jsp" /> <!-- 默认登陆后页面 -->
+		<property name="unauthorizedUrl" value="/unauthorized.jsp" /> <!-- 权限不足页面 -->
+		<!-- url访问策略 【URL级别权限控制】 -->
+		<property name="filterChainDefinitions">
+			<!-- 
+			开启Filter Chain 过滤器 ，它会激活10个Filter ！ 
+				anon: 匿名过滤器，未登陆也可以访问
+				authc: 认证过滤器， 登陆后访问 
+				perms : 需要xx权限
+				roles: 需要xx角色
+				user: 需要xx用户 
+				port:指定端口
+				ssl:必须使用https协议才能访问
+				logout :登出功能 
+				rest :get方式提交 或者 post方式提交才能访问
+			 -->
+			<value>
+				/system/elecUserAction_home.do = perms["an"]
+				/system/elecUserAction_delete.do = perms["fe"]
+				/system/elecUserAction_add.do = perms["fb"]
+				/system/elecRoleAction_home.do = roles["1"]
+				
+				/index.jsp = anon
+				/system/elecMenuAction_menuHome.do = anon
+				/*/*.do = authc
+			</value>
+		</property>
+	</bean>
+	
+	<!-- shiro的安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="elecRealm"></property>
+		<!-- 注入缓存管理器 -->
+		<property name="cacheManager" ref="cacheManager"></property>
+	</bean>
+	<!-- 对安全管理器 增强代码 ， spring 后处理器 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	
+	<!-- 添加realm -->
+	<bean id="elecRealm" class="cn.itcast.elec.util.ElecRealm">
+		<!-- 授权数据的缓存 -->
+		<property name="authorizationCacheName" value="elec"></property>
+	</bean>
+	
+	<!-- 启动shiro注解 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor" >
+		<!-- 表示对类进行代理，默认表示对接口进行代理 -->
+		<property name="proxyTargetClass" value="true" />
+	</bean>	
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+	
+	<!-- 对shiro授权数据进行缓存 -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<!-- 将ehcache 缓存管理器，交给shiro缓存管理器 -->
+		<property name="cacheManager" ref="ehCacheManagerFactory" />
+	</bean>
+</beans>

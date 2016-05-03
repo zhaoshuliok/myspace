@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.itcast.elec.domain.ElecPopedom" table="Elec_Popedom">
+		<composite-id>
+           <key-property name="id" type="string">
+               <column name="id"/>
+           </key-property>
+           <key-property name="pid" type="string">
+               <column name="pid"/>
+           </key-property>
+        </composite-id>	
+		<property name="name" type="string" column="name"></property>
+		<property name="page" type="string" column="page"></property>
+		<property name="generatemenu" type="string" column="generatemenu"></property>
+		<property name="description" type="string" column="description"></property>
+		<property name="orderby" type="integer" column="orderby"></property>
+		<property name="isMenu" type="string" column="isMenu"></property>
+	</class>
+</hibernate-mapping>

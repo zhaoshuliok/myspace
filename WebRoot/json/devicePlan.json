@@ -1,0 +1,7 @@
+{                                                      
+	"total":100,	
+	"rows":[ 
+		{"devPlanId":"1","devName":"电机设备","quality":"1","qunit":"个","devExpense":"10000","specType":"V1.0","useness":"发电","useUnit":"北京中关村","jctIdName":"北京","devTypeName":"发电设备","planDate":"2015-1-1","isDelete":"0"},
+		{"devPlanId":"1","devName":"电力设备","quality":"2","qunit":"个","devExpense":"10000","specType":"V1.0","useness":"发电","useUnit":"北京中关村","jctIdName":"北京","devTypeName":"发电设备","planDate":"2015-1-1","isDelete":"0"}
+	]
+}

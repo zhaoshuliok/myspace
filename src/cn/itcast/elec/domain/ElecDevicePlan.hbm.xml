@@ -1,0 +1,95 @@
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.itcast.elec.domain.ElecDevicePlan" table="elec_device_plan" >
+        <id name="devPlanId" type="string">
+            <column name="DevPlanID" length="50" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="jctId" type="string">
+            <column name="JctID" length="50" not-null="false" />
+        </property>
+        <property name="devName" type="string">
+            <column name="DevName" length="50" not-null="false" />
+        </property>
+        <property name="devType" type="string">
+            <column name="DevType" length="10" not-null="false" />
+        </property>
+        <property name="trademark" type="string">
+            <column name="Trademark" length="50" />
+        </property>
+        <property name="specType" type="string">
+            <column name="SpecType" length="50" />
+        </property>
+        <property name="produceHome" type="string">
+            <column name="ProduceHome" length="50" />
+        </property>
+        <property name="produceArea" type="string">
+            <column name="ProduceArea" length="50" />
+        </property>
+        <property name="useness" type="string">
+            <column name="Useness" length="50" />
+        </property>
+        <property name="quality" type="string">
+            <column name="Quality" length="10" />
+        </property>
+        <property name="useUnit" type="string">
+            <column name="UseUnit" length="50" />
+        </property>
+        <property name="devExpense" type="double">
+            <column name="DevExpense" precision="20" scale="2" />
+        </property>
+        <property name="planDate" type="timestamp">
+            <column name="PlanDate" length="23" />
+        </property>
+        <property name="adjustPeriod" type="string">
+            <column name="AdjustPeriod" length="50" />
+        </property>
+        <property name="overhaulPeriod" type="string">
+            <column name="OverhaulPeriod" length="50" />
+        </property>
+        <property name="configure" type="string">
+            <column name="Configure" length="50" />
+        </property>
+        <property name="ecomment" type="string">
+            <column name="ecomment" length="500" />
+        </property>
+        <property name="purchaseState" type="string">
+            <column name="PurchaseState" length="10" not-null="false" />
+        </property>
+        <property name="isDelete" type="string">
+            <column name="IsDelete" length="10" not-null="false" />
+        </property>
+        <property name="createEmpId" type="string">
+            <column name="CreateEmpID" length="50" />
+        </property>
+        <property name="createDate" type="timestamp">
+            <column name="CreateDate" length="23" />
+        </property>
+        <property name="lastEmpId" type="string">
+            <column name="LastEmpID" length="50" />
+        </property>
+        <property name="lastDate" type="timestamp">
+            <column name="LastDate" length="23" />
+        </property>
+        
+        <property name="qunit" type="string">
+            <column name="QUnit" length="10" />
+        </property>
+        <property name="apunit" type="string">
+            <column name="APUnit" length="10" />
+        </property>
+        <property name="opunit" type="string">
+            <column name="OPUnit" length="10" />
+        </property>
+        <property name="state" type="string">
+            <column name="state" length="10" />
+        </property>
+        
+        <property name="processInstanceID" type="string">
+            <column name="processInstanceID" length="50" />
+        </property>
+        <one-to-one name="elecDevice" class="cn.itcast.elec.domain.ElecDevice" property-ref="elecDevicePlan"></one-to-one>
+    </class>
+</hibernate-mapping>
